@@ -1,2 +1,4 @@
 # CTI-EN-1
-This is the link only for the first year :)
+This is only for the first year subjects :)
+
+# Semester 1
