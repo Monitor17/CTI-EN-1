@@ -1,0 +1,84 @@
+## EXAM PROBLEM 1/A
+
+##def f1(x):
+##    return x*2
+##
+##def f2(x):
+##    return x/2
+##
+##def result(list1, a, list2 = []):
+##    if(list1 == []):
+##        return list2
+##    list2.append(list1[0](a))
+##    return result(list1[1:], a, list2)
+##
+##print(result([f1,f2], 4))
+
+movie_dictionary = {1: "Avatar 2", 2: "The godfather", 3: "The Dark Knight"}
+
+dictionary_rating = {1: 6.75, 2: 8.80, 3: 7.67}
+
+##EXAM PROBLEM 2a/A
+
+##def number_films(dictionary_rating, minimum_rating, maximum_rating):
+##    list_dictionary=list(dictionary_rating.items())
+##    def check(list_dictionary,c=0):
+##        if(list_dictionary==[]):
+##            return c
+##        key,value=list_dictionary[0]
+##        if(value>minimum_rating and value<maximum_rating):
+##            c=c+1
+##        return check(list_dictionary[1:],c)
+##    return check(list_dictionary)
+##
+##print(number_films(dictionary_rating,7.50,10.00))
+
+##EXAM PROBLEM 2b/A
+
+##def get_movies(movie_dictionary, dictionary_rating, minimum_rating, maximum_rating):
+##    list_rating = list(dictionary_rating.items())
+##    list_name = list(movie_dictionary.items())
+##    def check_rating(list_rating, list_name, list1 = []):
+##        if(list_rating == []):
+##            return list1
+##        k1,v1 = list_rating[0]
+##        k2,v2 = list_name[0]
+##        if(v1>minimum_rating and v1<maximum_rating):
+##            list1.append(v2)
+##        return check_rating(list_rating[1:], list_name[1:], list1)
+##    return check_rating(list_rating, list_name)
+##            
+##
+##print(get_movies(movie_dictionary, dictionary_rating, 7.50, 10))
+
+
+##EXAM PROBLEM 3/B
+
+
+##tree = {'value': 2, 'left': {'value': 7, 'left': None, 'right': {'value': 6, 'left': {'value': 5, 'left': None, 'right': None}, 'right': {'value': 11, 'left': None, 'right': None}}}, 'right': {'value': 10, 'left': None, 'right': None}}
+##
+##def tree_odd_leaf(tree):
+##    if(tree==None):
+##        return []
+##    if(tree["left"]==None and tree["right"]==None and tree["value"]%2!=0):
+##       return [tree["value"]] + tree_odd_leaf(tree["left"]) + tree_odd_leaf(tree["right"]);
+##    return tree_odd_leaf(tree["left"]) + tree_odd_leaf(tree["right"]);
+##    
+##
+##print(tree_odd_leaf(tree))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

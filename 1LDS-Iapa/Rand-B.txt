@@ -1,0 +1,116 @@
+1. Let's consider a cake dictionary containing as keys an integer number (index) and as values strings of characters (representing the names of some cakes in a menu), respectively a dictionary containing as keys the same integer numbers as those in the first dictionary, and as values some float numbers representing the price associated with the products.
+
+a) Write a function number_cakes(price_dictionary, minimum_price, maximum_price) that takes as parameter the price dictionary, as well as the minimum and maximum prices and returns the number of cakes between the minimum and maximum price.
+
+b) Write a function get_cakes(cakes_dictionary, prices_dictionary, minimum_price, maximum_price) which takes as parameters the two dictionaries as well as the minimum and maximum prices and returns a list of all cakes between the two prices. 
+
+Example
+
+dictionary_cakes = {1: "Amandina", 2: "Savarina", 3: "Fruit cake", 4:"Chocolate cake"}
+
+price_dictionary = {1: 16.25, 2: 12.50, 3: 14.00, 4: 13.70}
+
+a) number_cakes(price_dictionary, 12.00, 13.99) => 2 (there are 2 prices between the two limits, 12.50 and 13.70)
+
+b) get_cakes(cakes_dictionary, prices_dictionary, 12.00, 13.99) => ["Savarina", "Chocolate cake"]
+
+Obs. It is assumed that the keys in the first dictionary will always match the keys in the second one 
+
+Notes: One of the map/filter/reduce functions will be used to browse the dictionary.
+--------------------------------------------------------------------------------------------
+
+def number_cakes(price_dictionary, minimum_price, maximum_price):
+    # Use filter to select prices within the specified range
+    # and then use len to count them
+    return len(list(filter(lambda price: minimum_price <= price <= maximum_price, price_dictionary.values())))
+def get_cakes(cakes_dictionary, prices_dictionary, minimum_price, maximum_price):
+    # Use filter to select cakes within the specified price range
+    # and then map the keys to cake names
+    return [cakes_dictionary[key] for key, price in prices_dictionary.items() if minimum_price <= price <= maximum_price]
+
+dictionary_cakes = {1: "Amandina", 2: "Savarina", 3: "Fruit cake", 4:"Chocolate cake"}
+price_dictionary = {1: 16.25, 2: 12.50, 3: 14.00, 4: 13.70}
+
+# a) Number of cakes in the price range
+num_cakes = number_cakes(price_dictionary, 12.00, 13.99)
+print(num_cakes)  # Output: 2
+
+# b) List of cakes in the price range
+cakes_list = get_cakes(dictionary_cakes, price_dictionary, 12.00, 13.99)
+print(cakes_list)  # Output: ["Savarina", "Chocolate cake"]
+
+2. Implement a function resMax, which takes as parameters a list of functions and a list of numbers of the same length, and returns the result with the maximum value between the call of each function and the number at the same index as it.
+Example: 
+resMax([lambda x: x + 1, lambda x: x * 10, lambda x: x - 3], [4, -1, 10]) 
+will return 7
+
+---------------------------------------------------------------------------------------------
+
+def resMax(functions, numbers):
+    # Calculate the result for each function with its corresponding number using map
+    # and return the maximum value among these results
+    return max(map(lambda fn_num: fn_num[0](fn_num[1]), zip(functions, numbers)))
+
+# Example usage
+example_functions = [lambda x: x + 1, lambda x: x * 10, lambda x: x - 3]
+example_numbers = [4, -1, 10]
+result = resMax(example_functions, example_numbers)
+print(result)
+
+3. Write a function that returns a set of all odd-numbered leaves in a binary tree.
+Exemple:
+Input: 
+{'value': 2, 'left': {'value': 7, 'left': None, 'right': {'value': 6, 'left': {'value': 5, 'left': None, 'right': None}, 'right': {'value': 11, 'left': None, 'right': None}}}, 'right': {'value': 10, 'left': None, 'right': None}}
+Output: 
+{5, 11}
+------------------------------------------------------------------------------------------
+
+def odd_leaves(tree):
+    result = set()
+
+    def traverse(node):
+        if node:
+            # Check if the node is a leaf
+            if node['left'] is None and node['right'] is None:
+                # Add to result if it's an odd number
+                if node['value'] % 2 != 0:
+                    result.add(node['value'])
+            else:
+                # Recursively traverse the left and right children
+                traverse(node['left'])
+                traverse(node['right'])
+
+    traverse(tree)
+    return result
+
+# Test the function
+tree_input = {
+    'value': 2,
+    'left': {
+        'value': 7,
+        'left': None,
+        'right': {
+            'value': 6,
+            'left': {
+                'value': 5,
+                'left': None,
+                'right': None
+            },
+            'right': {
+                'value': 11,
+                'left': None,
+                'right': None
+            }
+        }
+    },
+    'right': {
+        'value': 10,
+        'left': None,
+        'right': None
+    }
+}
+
+result = odd_leaves(tree_input)
+print(result)
+
+

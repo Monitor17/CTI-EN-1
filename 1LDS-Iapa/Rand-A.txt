@@ -1,0 +1,121 @@
+1. It is considered a dictionary of films containing as keys an integer number (index) and as values strings of characters (representing the names of some films), respectively a dictionary of ratings containing as keys the same integer numbers as those in the first dictionary and as values some float numbers representing the rating associated with the film. 
+
+a) Write a function number_films(dictionary_rating, minimum_rating, maximum_rating) which takes as parameter the name of a film and the minimum and maximum rating and returns the number of films with a rating between the two values.
+
+b) Write a function get_movies(movie_dictionary, rating_dictionary, minimum_rating, maximum_rating) which takes as parameters the two dictionaries and the minimum and maximum rating and returns the list of movies between the two ratings. 
+
+Example
+
+movie_dictionary = {1: "Avatar 2", 2: "The godfather", 3: "The Dark Knight"}
+
+dictionary_rating = {1: 6.75, 2: 8.80, 3: 7.67}
+
+a) number_films(dictionary_rating, 7.50, 10.00) => 2 (there are 2 ratings between these 2 values, 7.67 and 8.80, so there are 2 films)
+
+b) get_movies(dictionary_movies, dictionary_rating, 7.50, 10.00) => ["The godfather", "The Dark Knight"]
+
+Obs. It is assumed that the keys in the first dictionary will always match the keys in the second one 
+
+Notes: One of the map/filter/reduce functions will be used to browse the dictionary.
+
+
+def number_films(rating_dictionary, minimum_rating, maximum_rating):
+    return sum(minimum_rating <= rating <= maximum_rating for rating in rating_dictionary.values())
+
+def get_movies(movie_dictionary, rating_dictionary, minimum_rating, maximum_rating):
+    return [movie_dictionary[key] for key, rating in rating_dictionary.items() if minimum_rating <= rating <= maximum_rating]
+
+movie_dictionary = {1: "Avatar 2", 2: "The godfather", 3: "The Dark Knight"}
+rating_dictionary = {1: 6.75, 2: 8.80, 3: 7.67}
+
+# a) Number of films with rating between 7.50 and 10.00
+print(number_films(rating_dictionary, 7.50, 10.00))  # Expected Output: 2
+
+# b) List of movies with rating between 7.50 and 10.00
+print(get_movies(movie_dictionary, rating_dictionary, 7.50, 10.00))  # Expected Output: ["The godfather", "The Dark Knight"]
+
+2. Implement an applyFunction function, which takes as parameters a list of functions and a number (x) and returns a list containing the value of the functions in point x.
+
+Ex: with f(x) = 2 * x - 4, g(x) = x + 6, applyFunction([f, g], 7), the function will return [10, 13].
+
+Note: you are not allowed to use for or while
+
+def applyFunction(functions, x):
+    return list(map(lambda f: f(x), functions))
+
+# Example usage
+f = lambda x: 2 * x - 4
+g = lambda x: x + 6
+
+result = applyFunction([f, g], 7)
+print (result)
+
+3. Write a function that returns a list of all non-leaf nodes that are positive numbers in a binary tree.
+Exemple:
+Input: 
+{'value': 2, 'left': {'value': 7, 'left': None, 'right': {'value': -6, 'left': {'value': 5, 'left': None, 'right': None}, 'right': {'value': -11, 'left': None, 'right': None}}}, 'right': {'value': 10, 'left': None, 'right': None}}
+Output: 
+[2, 7]
+
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+def create_tree(node_dict):
+    if not node_dict:
+        return None
+    node = Node(node_dict['value'])
+    node.left = create_tree(node_dict['left'])
+    node.right = create_tree(node_dict['right'])
+    return node
+
+def find_positive_non_leaf_nodes(root):
+    if root is None:
+        return []
+
+    nodes = []
+    if root.value > 0 and (root.left is not None or root.right is not None):
+        nodes.append(root.value)
+
+    nodes += find_positive_non_leaf_nodes(root.left)
+    nodes += find_positive_non_leaf_nodes(root.right)
+
+    return nodes
+
+# Input tree
+tree_data = {
+    'value': 2,
+    'left': {
+        'value': 7,
+        'left': None,
+        'right': {
+            'value': -6,
+            'left': {
+                'value': 5,
+                'left': None,
+                'right': None
+            },
+            'right': {
+                'value': -11,
+                'left': None,
+                'right': None
+            }
+        }
+    },
+    'right': {
+        'value': 10,
+        'left': None,
+        'right': None
+    }
+}
+
+# Create the tree
+root = create_tree(tree_data)
+
+# Find positive non-leaf nodes
+positive_non_leaf_nodes = find_positive_non_leaf_nodes(root)
+positive_non_leaf_nodes
+
+print(positive_non_leaf_nodes)
